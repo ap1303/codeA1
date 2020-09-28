@@ -1,0 +1,36 @@
+make -C /home/cs469/linux-5.8 M=/home/cs469/modules modules
+make[1]: Entering directory '/home/cs469/linux-5.8'
+  CC [M]  /home/cs469/modules/simple_module.o
+/home/cs469/modules/simple_module.c:9:19: error: static declaration of ‘init_module’ follows non-static declaration
+ static int __init init_module(){
+                   ^~~~~~~~~~~
+In file included from /home/cs469/modules/simple_module.c:1:
+./include/linux/module.h:76:12: note: previous declaration of ‘init_module’ was here
+ extern int init_module(void);
+            ^~~~~~~~~~~
+/home/cs469/modules/simple_module.c:15:19: error: function declaration isn’t a prototype [-Werror=strict-prototypes]
+ static int __exit exit_module(){
+                   ^~~~~~~~~~~
+In file included from /home/cs469/modules/simple_module.c:1:
+./include/linux/module.h:133:6: error: redefinition of ‘init_module’
+  int init_module(void) __copy(initfn) __attribute__((alias(#initfn)));
+      ^~~~~~~~~~~
+/home/cs469/modules/simple_module.c:21:1: note: in expansion of macro ‘module_init’
+ module_init(init_module);
+ ^~~~~~~~~~~
+/home/cs469/modules/simple_module.c:9:19: note: previous definition of ‘init_module’ was here
+ static int __init init_module(){
+                   ^~~~~~~~~~~
+In file included from /home/cs469/modules/simple_module.c:1:
+/home/cs469/modules/simple_module.c: In function ‘__exittest’:
+/home/cs469/modules/simple_module.c:22:13: error: returning ‘int (*)()’ from a function with incompatible return type ‘exitcall_t’ {aka ‘void (*)(void)’} [-Werror=incompatible-pointer-types]
+ module_exit(exit_module);
+             ^~~~~~~~~~~
+./include/linux/module.h:138:11: note: in definition of macro ‘module_exit’
+  { return exitfn; }     \
+           ^~~~~~
+cc1: some warnings being treated as errors
+make[2]: *** [scripts/Makefile.build:281: /home/cs469/modules/simple_module.o] Error 1
+make[1]: *** [Makefile:1756: /home/cs469/modules] Error 2
+make[1]: Leaving directory '/home/cs469/linux-5.8'
+make: *** [Makefile:4: all] Error 2

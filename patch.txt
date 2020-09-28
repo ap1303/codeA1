@@ -1,0 +1,11 @@
+diff -Naur init/main.c myinit/main.c
+--- init/main.c	2020-09-28 04:55:00.767970857 -0400
++++ myinit/main.c	2020-09-28 11:39:40.971797949 -0400
+@@ -847,7 +847,6 @@
+ 	 */
+ 	boot_cpu_init();
+ 	page_address_init();
+-        printk("Welcome to zhangp46's kernel!");
+ 	pr_notice("%s", linux_banner);
+ 	early_security_init();
+ 	setup_arch(&command_line);
